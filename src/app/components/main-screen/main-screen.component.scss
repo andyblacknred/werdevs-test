@@ -1,0 +1,36 @@
+@import "src/variables";
+
+.main-screen {
+  background-image: url(../../../assets/img/main-screen-bg.png);
+  min-height: calc(100vh - 150px);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.main-screen-text {
+  max-width: 520px;
+  text-align: right;
+  padding: 0 35px;
+  margin-left: auto;
+  min-height: 490px;
+}
+
+h1 {
+  font-size: 50px;
+  line-height: 64px;
+  color: $yellow;
+  font-family: 'Rubik', sans-serif;
+  text-transform: uppercase;
+  margin: 0;
+  margin-bottom: 45px;
+}
+
+p {
+  font-size: 30px;
+  line-height: 40px;
+  color: $grey;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  margin: 0;
+}

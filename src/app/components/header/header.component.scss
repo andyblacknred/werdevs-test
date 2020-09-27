@@ -1,0 +1,32 @@
+@import "src/variables";
+
+.header {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: $white;
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+img {
+  width: 165px;
+  height: 50px;
+}
+
+a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 30px;
+  color: $black;
+  margin-right: 70px;
+  &:last-child {
+    margin-right: 0;
+  }
+}

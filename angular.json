@@ -28,6 +28,8 @@
               "src/assets"
             ],
             "styles": [
+              "src/fonts.scss",
+              "src/variables.scss",
               "src/styles.scss"
             ],
             "scripts": []
