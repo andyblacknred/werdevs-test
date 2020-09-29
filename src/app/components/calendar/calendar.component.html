@@ -1,1 +1,60 @@
-<p>calendar works!</p>
+<div class="calendar">
+
+  <div class="wrapper">
+
+    <div class="month">
+      <div class="month-prev month-btn" (click)="changeMonth('prev')" ><</div>
+      <div class="month-text">{{ monthNames[ date.getMonth() ] }} {{ date.getFullYear() }}</div>
+      <div class="month-next month-btn" (click)="changeMonth('next')">></div>
+    </div>
+
+    <div class="days">
+      <div class="days-row" *ngFor="let week of filledCurentMonthDaysArray">
+
+        <div (click)="showPopup(day.day)" [ngClass]="{ 'inactive': !day.isInCurrentMonth, 'active': day.isCurrentDay }" *ngFor="let day of week" class="days-cell">{{ day.day.getDate() }}</div>
+
+      </div>
+    </div>
+
+    <div class="days-title">
+      <div class="days-title-cell">
+        s
+      </div>
+      <div class="days-title-cell">
+        m
+      </div>
+      <div class="days-title-cell">
+        t
+      </div>
+      <div class="days-title-cell">
+        w
+      </div>
+      <div class="days-title-cell">
+        t
+      </div>
+      <div class="days-title-cell">
+        f
+      </div>
+      <div class="days-title-cell">
+        s
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="isPopupShow" (click)="isPopupShow = !isPopupShow" class="popup-bg"></div>
+  <div *ngIf="isPopupShow" class="popup">
+    <div class="close" (click)="isPopupShow = !isPopupShow">x</div>
+    <div class="popup-flex">
+      <div class="popup-item">
+        <label for="month">Month</label>
+        <input id="month" [value]="monthNames[ clickedDate.getMonth() ]" disabled type="text" >
+      </div>
+      <div class="popup-item">
+        <label for="day">Day</label>
+        <input id="day" [value]="clickedDate.getDate() + endOfDayName + daysInWeek[ clickedDate.getDay() ]" disabled type="text" >
+      </div>
+    </div>
+  </div>
+
+</div>

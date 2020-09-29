@@ -1,0 +1,157 @@
+@import "src/variables";
+
+.calendar {
+  background-color: $dark;
+  height: 100%;
+  font-family: 'Rubik', sans-serif;
+  color: $white;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media only screen and (max-width: $mobile)  {
+    min-height: calc(100vh - 310px);
+  }
+  .wrapper {
+    max-width: 470px;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    .month {
+      display: flex;
+      justify-content: space-between;
+      font-size: 19px;
+      text-transform: uppercase;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid $grey;
+      .month-btn {
+        cursor: pointer;
+        color: $grey;
+      }
+    }
+    .days {
+      margin: 35px 0;
+      .days-row {
+        display: flex;
+        justify-content: space-between;
+        .days-cell {
+          width: 50px;
+          height: 50px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 17px;
+          cursor: pointer;
+          &.active {
+            background-color: $yellow;
+            color: $black;
+          }
+          &.inactive {
+            color: $grey;
+            opacity: .25;
+          }
+        }
+      }
+    }
+    .days-title {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid $grey;
+      border-bottom: 1px solid $grey;
+      .days-title-cell {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        font-size: 19px;
+      }
+    }
+  }
+}
+
+.popup-bg {
+  background-color: $black;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: .85;
+}
+
+.popup {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  padding: 30px;
+  box-sizing: border-box;
+  background-color: $white;
+  color: $black;
+  width: 90%;
+  max-width: 510px;
+  .close {
+    background-color: $yellow;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: 100;
+    font-size: 16px;
+    margin-left: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+  .popup-flex {
+    display: flex;
+    justify-content: space-between;
+    @media only screen and (max-width: $mobile)  {
+      flex-direction: column;
+    }
+    .popup-item {
+      width: calc(50% - 10px);
+      @media only screen and (max-width: $mobile)  {
+        width: 100%;
+        margin-bottom: 15px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      label {
+        display: block;
+        color: $grey-label;
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+      input {
+        font-size: 22px;
+        color: $black;
+        font-weight: 700;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        border: 2px solid $yellow;
+        background-color: $white;
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+

@@ -28,5 +28,14 @@ a {
   margin-right: 70px;
   &:last-child {
     margin-right: 0;
+    margin-bottom: 0;
+  }
+  @media only screen and (max-width: $mobile)  {
+    font-size: 20px;
+    line-height: 22px;
+    margin-right: 0;
+    margin-bottom: 15px;
+    display: block;
+    text-align: right;
   }
 }

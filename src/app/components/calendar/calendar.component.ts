@@ -7,9 +7,110 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
+  now = new Date();
+  date = new Date(this.now.getFullYear(), this.now.getMonth(), 1);
+  curentMonthDaysArray = [];
+  filledCurentMonthDaysArray = [];
+  monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  clickedDate = this.now;
+  isPopupShow = false;
+  endOfDayName = 'th ';
+
+  getDaysInMonth(month, year) {
+    let date = new Date(year, month, 1);
+    let days = [];
+    while (date.getMonth() === month) {
+      let day = new Date(date);
+      let dayObj = {
+        day: day,
+        isInCurrentMonth: true,
+        isCurrentDay: day.getDate() === this.now.getDate() && day.getMonth() === this.now.getMonth() && day.getFullYear() === this.now.getFullYear()
+      }
+      days.push(dayObj);
+      date.setDate(date.getDate() + 1);
+    }
+    return days;
+  }
+
+  fillEmptyDays(daysArray) {
+    let firstDayOfCurrentMonth = daysArray[0];
+    let lastDayOfCurrentMonth = daysArray[daysArray.length - 1];
+    let i = 0;
+    while(daysArray[0].day.getDay() !== 0) {
+      let day = new Date(firstDayOfCurrentMonth.day.getFullYear(), firstDayOfCurrentMonth.day.getMonth(), i)
+      daysArray.unshift({
+        day: day,
+        isInCurrentMonth: false,
+        isCurrentDay: day.getDate() === this.now.getDate() && day.getMonth() === this.now.getMonth() && day.getFullYear() === this.now.getFullYear()
+      });
+      i--;
+    }
+    let j = 1;
+    while(daysArray[daysArray.length - 1].day.getDay() !== 6) {
+      let day = new Date(lastDayOfCurrentMonth.day.getFullYear(), lastDayOfCurrentMonth.day.getMonth() + 1, j);
+      daysArray.push({
+        day: day,
+        isInCurrentMonth: false,
+        isCurrentDay: day.getDate() === this.now.getDate() && day.getMonth() === this.now.getMonth() && day.getFullYear() === this.now.getFullYear()
+      });
+      j++;
+    }
+    return daysArray;
+  }
+
+  splitTo(arr, chunk_size) {
+    let index = 0;
+    let arrayLength = arr.length;
+    let tempArray = [];
+
+    for (index = 0; index < arrayLength; index += chunk_size) {
+      let myChunk = arr.slice(index, index+chunk_size);
+      tempArray.push(myChunk);
+    }
+
+    return tempArray;
+  }
+
+  buildFilledCurentMonthDaysArray(date) {
+    this.curentMonthDaysArray = this.getDaysInMonth(date.getMonth(), date.getFullYear());
+    this.filledCurentMonthDaysArray = this.fillEmptyDays(this.curentMonthDaysArray);
+    this.filledCurentMonthDaysArray = this.splitTo( this.curentMonthDaysArray, 7 );
+    console.log(this.curentMonthDaysArray);
+    console.log(this.filledCurentMonthDaysArray);
+  }
+
+  changeMonth(direction) {
+    if(direction === 'next') {
+      this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1);
+    } else if(direction === 'prev') {
+      this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1, 1);
+    }
+    this.buildFilledCurentMonthDaysArray(this.date);
+  }
+
+  showPopup(date) {
+    this.clickedDate = date;
+    if(date.getDate() === 1 || date.getDate() === 21 || date.getDate() === 31) {
+      this.endOfDayName = 'st '
+    } else if(date.getDate() === 2 || date.getDate() === 22) {
+      this.endOfDayName = 'nd '
+    } else if(date.getDate() === 3 || date.getDate() === 23) {
+      this.endOfDayName = 'rd '
+    } else {
+      this.endOfDayName = 'th '
+    }
+    this.isPopupShow = true;
+  }
+
   constructor() { }
 
   ngOnInit(): void {
+    this.buildFilledCurentMonthDaysArray(this.date);
   }
+
+
 
 }
