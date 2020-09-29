@@ -62,11 +62,10 @@ export class CalendarComponent implements OnInit {
   }
 
   splitTo(arr, chunk_size) {
-    let index = 0;
     let arrayLength = arr.length;
     let tempArray = [];
 
-    for (index = 0; index < arrayLength; index += chunk_size) {
+    for (let index = 0; index < arrayLength; index += chunk_size) {
       let myChunk = arr.slice(index, index+chunk_size);
       tempArray.push(myChunk);
     }
@@ -78,8 +77,6 @@ export class CalendarComponent implements OnInit {
     this.curentMonthDaysArray = this.getDaysInMonth(date.getMonth(), date.getFullYear());
     this.filledCurentMonthDaysArray = this.fillEmptyDays(this.curentMonthDaysArray);
     this.filledCurentMonthDaysArray = this.splitTo( this.curentMonthDaysArray, 7 );
-    console.log(this.curentMonthDaysArray);
-    console.log(this.filledCurentMonthDaysArray);
   }
 
   changeMonth(direction) {
@@ -110,7 +107,5 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.buildFilledCurentMonthDaysArray(this.date);
   }
-
-
 
 }
