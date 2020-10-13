@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from "rxjs";
+import { Store } from "@ngrx/store";
+import { changeClickedDate, changeCalendarDate } from "../../store/store.actions";
 
 @Component({
   selector: 'app-calendar',
@@ -18,6 +21,12 @@ export class CalendarComponent implements OnInit {
   clickedDate = this.now;
   isPopupShow = false;
   endOfDayName = 'th ';
+
+  calendar$: Observable<{ date: Date, clickedDate: Date } >;
+
+  constructor(private store: Store<{ calendar: { date, clickedDate } }>) {
+    this.calendar$ = store.select('calendar');
+  }
 
   getDaysInMonth(month, year) {
     let date = new Date(year, month, 1);
@@ -81,15 +90,16 @@ export class CalendarComponent implements OnInit {
 
   changeMonth(direction) {
     if(direction === 'next') {
-      this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1);
+      let date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1);
+      this.store.dispatch(changeCalendarDate({ prop: date }));
     } else if(direction === 'prev') {
-      this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1, 1);
+      let date = new Date(this.date.getFullYear(), this.date.getMonth() - 1, 1);
+      this.store.dispatch(changeCalendarDate({ prop: date }));
     }
-    this.buildFilledCurentMonthDaysArray(this.date);
   }
 
   showPopup(date) {
-    this.clickedDate = date;
+    this.store.dispatch(changeClickedDate({ prop: date }))
     if(date.getDate() === 1 || date.getDate() === 21 || date.getDate() === 31) {
       this.endOfDayName = 'st '
     } else if(date.getDate() === 2 || date.getDate() === 22) {
@@ -102,10 +112,12 @@ export class CalendarComponent implements OnInit {
     this.isPopupShow = true;
   }
 
-  constructor() { }
-
   ngOnInit(): void {
-    this.buildFilledCurentMonthDaysArray(this.date);
+    this.calendar$.subscribe(res => {
+      this.date = res.date;
+      this.clickedDate = res.clickedDate;
+      this.buildFilledCurentMonthDaysArray(this.date);
+    })
   }
 
 }

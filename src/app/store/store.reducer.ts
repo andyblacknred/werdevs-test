@@ -1,15 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
-import { increment, decrement, reset } from './store.actions';
+import { changeCalendarDate, changeClickedDate } from './store.actions';
 
-export const initialState = 0;
+export const initialCalendarState = {
+  date: new Date(),
+  clickedDate: new Date()
+};
 
-const _counterReducer = createReducer(
-  initialState,
-  on(increment, (state) => state + 1),
-  on(decrement, (state) => state - 1),
-  on(reset, (state) => 0)
-);
+const _calendarReducer = createReducer(
+  initialCalendarState,
+  on(changeCalendarDate, (state, { prop }) => ({...state, date: prop })),
+  on(changeClickedDate, (state, { prop }) => ({...state, clickedDate: prop })),
+)
 
-export function counterReducer(state, action) {
-  return _counterReducer(state, action);
+export function calendarReducer(state, action) {
+  return _calendarReducer(state, action)
 }

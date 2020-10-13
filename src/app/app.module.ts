@@ -10,8 +10,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { MainScreenComponent } from './components/main-screen/main-screen.component';
 import { HomeComponent } from './pages/home/home.component';
 
-
-import { counterReducer } from './store/store.reducer';
+import { calendarReducer } from './store/store.reducer';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,7 @@ import { counterReducer } from './store/store.reducer';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ count: counterReducer })
+    StoreModule.forRoot({ calendar: calendarReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]
